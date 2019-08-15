@@ -102,3 +102,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+#smarty templates cache
+site/smarty/templates_c
