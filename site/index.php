@@ -6,7 +6,7 @@ date_default_timezone_set('America/Chicago');
 
 
 
-$home_path = '/workspaces/jwebgen/site/';
+$home_path = '/var/www/html/';
 
 
 
