@@ -1,0 +1,149 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: small;
+    background-color: #fff;
+}
+
+img {
+    border: none;
+}
+
+div#content, div#footer, #navMenu {
+    width:800px;
+    margin:0px auto;
+}
+
+#navMenu {
+}
+
+#navMenu ul {
+    border-bottom: 1px solid black;
+    height: 27px;
+    padding-left: 0px;
+}
+
+#navMenu li {
+    display: inline;
+    float: left;
+    padding: 5px;
+    background-color: #CCC;
+    margin-left: 5px;
+    border: 1px solid black;
+    -moz-border-top-left-radius: 10px;
+    border-top-left-radius: 10px;
+    -moz-border-top-right-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 75px;
+    text-align: center;
+}
+
+#navMenu a {
+    display:block;
+}
+
+#navMenu a:hover {
+}
+
+span.formLabel {
+    float: left;
+    width: 6em;
+    display: inline;
+}
+span.hexColor {
+    margin-top: 0px;
+    padding: 0em 1em;
+}
+
+#index * #navIndex, #lookup * #navLookup, #generate * #navGenerate,
+#starter * #navStarter, #starterOO * #navStarterOO, #breed * #navBreed,
+#breedOO * #navBreedOO, #love * #navLove {
+    background-color: #EEE;
+}
+
+#index * #navIndex a, #lookup * #navLookup a, #generate * #navGenerate a,
+#starter * #navStarter a, #starterOO * #navStarterOO a, #breed * #navBreed a,
+#breedOO * #navBreedOO a, #love * #navLove a {
+}
+
+
+#top_bar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 40px;
+    background: #ffffe1;
+    border-bottom: 1px solid black;
+    float: left;
+    z-index:2;
+    font-size: 1em;
+    font-weight: normal;
+    display: inline;
+    font-family: Arial, Verdana, sans-serif;
+    text-align: left;
+    color: black;
+}
+#top_bar:hover {
+    background: #004ba8;
+    color: white;
+}
+#top_bar p.infotext {
+    float: left;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 15px;
+    margin-top: 7px;
+}
+#top_bar a.close {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 7px;
+    margin-right: 15px;
+    float: right;
+    color: silver;
+    text-decoration: none;
+}
+#top_bar a.close:hover {
+    margin-top: 8px;color: white;
+}
+
+
+#tblStarter {
+    width: 100%;
+    text-align: center;
+}
+#tblStarter td {
+    text-align: center;
+}
+
+#tblBreed {
+    width: 100%;
+    text-align: center;
+}
+#tblBreed td {
+    text-align: center;
+}
+#tblBreed * select {
+    width: 150px;
+}
+#tblBreed * select#age {
+    width: 75px;
+}
+
+.tdponyLookupForm{
+    valign:top;
+}
+
+.colorPicker {
+    border: 1px solid black; 
+    display: inline-block; 
+    overflow: visible; 
+    width: 37px; 
+    z-index: 1; 
+    background-color: rgb(255, 255, 255);
+}
+
+
