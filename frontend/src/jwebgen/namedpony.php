@@ -12,7 +12,7 @@ namespace jwebgen {
      *   used when name is known and
      *   pony exists on ponyisland
      */
-    class namedpony extends \jwebgen\Pony {
+    class namedPony extends \jwebgen\Pony {
 
         var $Nick;
         var $Name;
@@ -24,7 +24,7 @@ namespace jwebgen {
             $this->ID = '';
         }
 
-        function PrintStats() {
+        function PrintStats($noGender = false) {
             //$this->imageUrl = "http://im3.ponyisland.net/?img=pony&pny=" . $PonyX->ID . "&size=220&" . $tmpage . "&modified=" . time() . "&jwg";
 
             parent::setPonyIslandImageUrl();

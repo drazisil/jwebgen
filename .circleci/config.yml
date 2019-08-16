@@ -1,6 +1,23 @@
 version: 2.1
 jobs:
-  build:
+
+  test_frontend:
+    docker:
+      - image: circleci/php
+    steps:
+      - checkout
+      - run:
+          name: Install phpunit
+          command: php composer.phar install
+          working_directory: frontend
+      - run:
+          name: Run unit tests
+          command: ./vendor/bin/phpunit --coverage-clover coverage.xml --bootstrap vendor/autoload.php
+          working_directory: frontend
+      - store_artifacts:
+          path: frontend/coverage.xml          
+
+  test_e2e:
     machine:
       image: ubuntu-1604:201903-01
     steps:
@@ -28,11 +45,19 @@ jobs:
       - store_artifacts:
           path: e2e_tests/results
       - store_artifacts:
+          path: e2e_tests/cypress/screenshots
+      - store_artifacts:
           path: e2e_tests/cypress/videos
       - store_artifacts:
           path: e2e_tests/coverage
+      - store_artifacts:
+          path: frontend/coverage.xml
+
 
 workflows:
   main:
     jobs:
-      - build
+      - test_frontend
+      - test_e2e:
+          requires:
+            - test_frontend
