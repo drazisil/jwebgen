@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Start docker-compose
+          command: docker-compose -f "docker-compose.yml" up -d --build
+      - run:
+          name: Wait for it to be up
+          command: tools/wait-for-it.sh localhost:80
+      - run:
+          name: Shutdown the containers
+          command: docker-compose down
+
+workflows:
+  main:
+    jobs:
+      - build
