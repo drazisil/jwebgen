@@ -24,9 +24,9 @@ jobs:
           command: docker-compose down
       
       - store_test_results:
-          path: results
+          path: e2e_tests/results
       - store_artifacts:
-          path: results
+          path: e2e_tests/results
       - store_artifacts:
           path: e2e_tests/cypress/videos
 
