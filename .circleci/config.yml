@@ -16,7 +16,7 @@ jobs:
           command: npm ci
           working_directory: e2e_tests
       - run:
-          name: Run Cypress e3e tests
+          name: Run Cypress e2e tests
           command: npx cypress run
           working_directory: e2e_tests
       - run:
