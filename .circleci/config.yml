@@ -13,6 +13,7 @@ jobs:
       - run:
           name: Run unit tests
           command: ./vendor/bin/phpunit --coverage-clover coverage.xml --bootstrap vendor/autoload.php
+          working_directory: frontend
       - store_artifacts:
           path: frontend/coverage.xml          
 
