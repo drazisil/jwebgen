@@ -12,5 +12,10 @@
   "license": "GPLv3",
   "dependencies": {
     "cypress": "^3.4.1"
+  },
+  "devDependencies": {
+    "@cypress/code-coverage": "^1.8.0",
+    "istanbul-lib-coverage": "^2.0.5",
+    "nyc": "^14.1.1"
   }
 }

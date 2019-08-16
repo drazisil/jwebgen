@@ -29,6 +29,8 @@ jobs:
           path: e2e_tests/results
       - store_artifacts:
           path: e2e_tests/cypress/videos
+      - store_artifacts:
+          path: e2e_tests/coverage
 
 workflows:
   main:
