@@ -1,0 +1,112 @@
+# Use PHP 5.3
+AddType application/x-httpd-php53 .php 
+
+RewriteEngine On
+#RewriteCond %{HTTP_HOST} ^www\.jwebgen\.com$ [NC]
+#RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+#RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+#RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+#RewriteRule ^(.*)$ http://jwebgen.com/$1 [R=301,L]
+
+# Fixing bad links
+#RedirectMatch permanent /ponydo.php http://jwebgen.com/ 
+#RedirectMatch permanent /generate.php.. http://jwebgen.com/generate 
+#RedirectMatch permanent /generate.html http://jwebgen.com/generate 
+#RedirectMatch permanent /breed.php<br http://jwebgen.com/breed 
+#RedirectMatch gone /quest.php 
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+#RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+#RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+#RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^(.*)$ $1.php
+# Replace html with your file extension, eg: php, htm, asp
+
+AddHandler application/x-httpd-php-source .phps
+AddHandler application/x-httpd-php53 .html
+AddHandler application/xhtml+xml .xhtml
+AddHandler application/x-httpd-php53 .xhtml
+<FilesMatch "\\.js.gz$">
+  ForceType text/javascript
+  Header set Content-Encoding: gzip
+</FilesMatch>
+<FilesMatch "\\.js$">
+  RewriteEngine On
+  RewriteCond %{HTTP_USER_AGENT} !".*Safari.*"
+  RewriteCond %{HTTP:Accept-Encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}.gz -f
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+#RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+  RewriteRule (.*)\.js$ $1\.js.gz [L]
+  ForceType text/javascript
+</FilesMatch>
+
+# Cache Control with .htaccess
+# from http://www.askapache.com/htaccess/speed-up-sites-with-htaccess-caching.html
+
+# 12 Months
+<FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf)$">
+	Header set Cache-Control "max-age=31536000"
+	Header set Cache-Control "public"
+</FilesMatch>
+
+# 1 Week
+<FilesMatch ".(js|css|pdf|txt)$">
+	Header set Cache-Control "max-age=604800"
+</FilesMatch>
+
+# 10 Minutes
+<FilesMatch ".(html|htm)$">
+	Header set Cache-Control "max-age=600"
+</FilesMatch>
+
+# NONE
+<FilesMatch ".(pl|php|cgi|spl)$">
+	Header unset Cache-Control
+	Header unset Expires
+	Header unset Last-Modified
+	FileETag None
+	Header unset Pragma
+</FilesMatch>
+
+# TIME CHEAT SHEET
+#      300   5 MIN
+#      600  10 MIN
+#      900  15 MIN
+#     1800  30 MIN
+#     2700  45 MIN
+#
+#     3600   1 HR
+#     7200   2 HR
+#    10800   3 HR
+#    14400   4 HR
+#    18000   5 HR
+#    36000  10 HR
+#    39600  11 HR
+#    43200  12 HR
+#    46800  13 HR
+#    50400  14 HR
+#    54000  15 HR
+#    86400  24 HR
+#
+#    86400   1 DAY
+#   172800   2 DAY
+#   259200   3 DAY
+#   345600   4 DAY
+#   432000   5 DAY
+#   518400   6 DAY
+#   604800   7 DAY
+#
+#   604800   1 WEEK
+#  1209600   2 WEEK
+#  1814400   3 WEEK
+#  2419200   4 WEEK
+#
+#  2419200   1 MONTH (FEBRUARY)
+#  2505600   1 MONTH (FEBRUARY LEAP YEAR)
+#  2592000   1 MONTH (APRIL, JUNE, SEPTEMBER, NOVEMBER)
+#  2678400   1 MONTH (JANUARY, MARCH, MAY, JULY, AUGUST, OCTOBER, DECEMBER)
+# 31536000  12 MONTH

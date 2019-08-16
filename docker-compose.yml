@@ -1,0 +1,7 @@
+version: "3.7"
+services: 
+  frontend:
+    build: ./frontend
+    image: frontend:latest
+    ports: 
+      - "80:80"

@@ -1,0 +1,7 @@
+# robots.txt generated at http://www.mcanerin.com
+User-agent: *
+Disallow: /cgi-bin/
+Disallow: /assets/
+Disallow: /pony/thankyou.php
+
+Sitemap: http://www.jwebgen.com/ponysitemap.xml
