@@ -11,5 +11,11 @@
             "name": "Joe Becher",
             "email": "jwbecher@drazisil.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "": "src/",
+            "\\jwebgen\\": "src/jwebgen"
+        }   
+    }
 }

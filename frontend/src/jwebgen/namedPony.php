@@ -24,7 +24,7 @@ namespace jwebgen {
             $this->ID = '';
         }
 
-        function PrintStats() {
+        function PrintStats($noGender = false) {
             //$this->imageUrl = "http://im3.ponyisland.net/?img=pony&pny=" . $PonyX->ID . "&size=220&" . $tmpage . "&modified=" . time() . "&jwg";
 
             parent::setPonyIslandImageUrl();
