@@ -1,5 +1,6 @@
 node_modules
 cypress/videos
+cypress/screenshots
 results
 coverage
 .nyc_output
