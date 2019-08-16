@@ -26,6 +26,6 @@ require('./includes/utility.php');
 
 
 
-$pony = new \jwebgen\namedpony();
+$pony = new \jwebgen\namedPony();
 $pony->createPonyFromID(filter_input(INPUT_GET, 'id'), true);
 print_r($pony);

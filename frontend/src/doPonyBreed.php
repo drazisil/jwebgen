@@ -4,10 +4,10 @@
 * Returns a test breed from two PonyIsland ponies
 */
 
-	$ponyDad = new \jwebgen\namedpony();
+	$ponyDad = new \jwebgen\namedPony();
 	$ponyDad->createPonyFromID( filter_input(INPUT_GET, 'DadID') );
         $ponyDad->setPonyIslandImageUrl();
-	$ponyMom = new \jwebgen\namedpony();
+	$ponyMom = new \jwebgen\namedPony();
 	$ponyMom ->createPonyFromID( filter_input(INPUT_GET, 'MomID') );
         $ponyMom->setPonyIslandImageUrl();
 	$PonyB = new \jwebgen\Pony();

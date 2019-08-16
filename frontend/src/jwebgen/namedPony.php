@@ -12,7 +12,7 @@ namespace jwebgen {
      *   used when name is known and
      *   pony exists on ponyisland
      */
-    class namedpony extends \jwebgen\Pony {
+    class namedPony extends \jwebgen\Pony {
 
         var $Nick;
         var $Name;
