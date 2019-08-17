@@ -10,6 +10,8 @@ function ajaxQuery(requestType, requestURL, outputNode) {
         return false;
     }
 
+    requestURL = 'http://localhost:8000/' + requestURL
+
     var xmlHttp;
     try
     {
