@@ -10,6 +10,12 @@ def fetch_pi_breed(breed_id):
     obj = json.loads(content)
     return obj['Name']
 
+def fetch_pi_gene(gene_id):
+    page = urlopen('http://get.ponyisland.net?gene={}'.format(gene_id))
+    content = page.read()
+    obj = json.loads(content)
+    return obj['Name']
+
 def fetch_pi_pony(pony_id):
     page = urlopen('http://get.ponyisland.net?pony={}'.format(pony_id))
     content = page.read()
@@ -25,6 +31,15 @@ def fetch_pi_pony(pony_id):
         pass
     return obj
 
+def remap_pi_sgenes(raw_sgenes):
+    sgenes = []
+    for gene in raw_sgenes:
+        name = fetch_pi_gene(gene)
+        if name == None:
+            pass
+        sgenes.append(name)
+    return sgenes
+
 def remap_pi_pony(raw_pony):
     clean_pony = {}
     clean_pony['id'] = raw_pony['ID']
@@ -38,6 +53,8 @@ def remap_pi_pony(raw_pony):
     clean_pony['colors']['body'] = raw_pony['Colors']['Body']
     clean_pony['colors']['extra1'] = raw_pony['Colors']['Extra1']
     clean_pony['colors']['extra2'] = raw_pony['Colors']['Extra2']
+    clean_pony['sgenes'] = remap_pi_sgenes(raw_pony['Genes'])
+    
     return clean_pony
 
 
@@ -76,10 +93,6 @@ def get(request):
     pony_raw_xml = dicttoxml.dicttoxml(pi_pony_json, root=False).decode()
     pony_clean_xml = dicttoxml.dicttoxml(remapped_pi_pony, root=False).decode()
 
-
-
-
-
     # Raw Pony
     raw_pony_xml_string = ''.join(['<rawpony>', pony_raw_xml, '</rawpony>'])
     pony.append(ET.fromstring(raw_pony_xml_string))
@@ -93,42 +106,42 @@ def get(request):
     
     # Name
     name = ET.SubElement(pony, 'name')
-    name.text = 'Genny'
+    name.text = remapped_pi_pony['name']
 
     # Breed
     breed = ET.SubElement(pony, 'breed')
-    breed.text = 'EarthPony'    
+    breed.text = remapped_pi_pony['breed']    
         
     # Gender
     gender = ET.SubElement(pony, 'gender')
-    gender.text = 'Female'    
+    gender.text = remapped_pi_pony['gender']
 
     # Colors
     colors = ET.SubElement(pony, 'colors')
 
     # Colors -> Eyes
     eyes = ET.SubElement(colors, 'eyes')
-    eyes.text = '000000'        
+    eyes.text = remapped_pi_pony['colors']['eyes']
 
     # Colors -> Hair
     hair = ET.SubElement(colors, 'hair')
-    hair.text = '000000'        
+    hair.text = remapped_pi_pony['colors']['hair']
 
     # Colors -> Stripe
     stripe = ET.SubElement(colors, 'stripe')
-    stripe.text = '000000'        
+    stripe.text = remapped_pi_pony['colors']['hair2']
 
     # Colors -> Body
     body = ET.SubElement(colors, 'body')
-    body.text = '000000'        
+    body.text = remapped_pi_pony['colors']['body']
 
     # Colors -> Extra1
     ex1 = ET.SubElement(colors, 'ex1')
-    ex1.text = '000000'        
+    ex1.text = remapped_pi_pony['colors']['extra1']
 
     # Colors -> Extra2
     ex2 = ET.SubElement(colors, 'ex2')
-    ex2.text = '000000'        
+    ex2.text = remapped_pi_pony['colors']['extra2']
 
     # SGenes
     sgenes = ET.SubElement(pony, 'sgenes')
