@@ -350,7 +350,7 @@ namespace jwebgen {
          */
         function ponyId2XML($ponyId, $testOnly = false, $usenew = true) {
 
-            $url = 'http://piproxy:9000/get?pny=' . $ponyId;
+            $url = 'http://piproxy:9000/get/?pny=' . $ponyId;
 
             $browser = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.49 Safari/537.36";
 
@@ -379,8 +379,7 @@ namespace jwebgen {
                         $email .= "Contents of url\n" . $this->piURL . "\n\n";
                         $email .= 'Curl error: (' . curl_errno($ch) . ') ' . curl_error($ch) . "\n";
                         $email .= "Contents of info:\n\n" . print_r($info, 1);
-                        // error_log($email, 1, 'jwbecher+errors_jwebgen@gmail.com');
-                        echo($email);
+                        error_log($email, 1, 'jwbecher+errors_jwebgen@gmail.com');
                         break;
                 }
                 curl_close($ch);
@@ -396,6 +395,7 @@ namespace jwebgen {
                      * download size is under 200
                      * PonyIsland returned a result, but it was empty
                      */
+                    echo 'URL: '.$info['size_download'].$url_string;
                     curl_close($ch);
                     return false;
                 } else if ($testOnly) {
@@ -423,7 +423,7 @@ namespace jwebgen {
             $strCleanedName = preg_replace_callback($pattern_name, array(&$this, '_name_match'), $ponyXMLString);
             $strCleanedNick = preg_replace_callback($pattern_nick, array(&$this, '_nick_match'), $strCleanedName);
             $strCleanedOwner = preg_replace_callback($pattern_owner, array(&$this, '_owner_match'), $strCleanedNick);
-            libxml_use_internal_errors(true);
+            // libxml_use_internal_errors(true);
             $xmlData = simplexml_load_string($strCleanedOwner);
             if (!$xmlData) {
                 /**
