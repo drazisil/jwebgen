@@ -99,7 +99,3 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-
-#smarty templates cache
-templates_c/*
-!templates_c/.gitkeep
