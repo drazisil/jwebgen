@@ -8,6 +8,9 @@ import dicttoxml
 def index(request):
     return HttpResponse("Hello, world. You're at the piproxy index.")
 
+def get_json(request):
+    return get(request)
+    
 def get(request):
     page = urlopen('http://get.ponyisland.net?pony=1')
     content = page.read()

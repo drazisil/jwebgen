@@ -20,5 +20,6 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('get/', views.get, name='get'),
-    path('admin/', admin.site.urls),
+    path('get.json/', views.get_json, name='get_json'),
+    # path('admin/', admin.site.urls),
 ]
