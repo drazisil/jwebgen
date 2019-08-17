@@ -7,7 +7,7 @@ function generateStarterURL() {
 
     ajaxURL = '';
 
-    ajaxURL = 'controller?';
+    ajaxURL = 'controller.php?';
 
     if (document.forms[0].surprise.checked) {
 

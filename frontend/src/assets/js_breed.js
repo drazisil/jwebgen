@@ -27,7 +27,7 @@ function generateBreedURL() {
 
     ajaxURL = '';
 
-    ajaxURL = 'controller?';
+    ajaxURL = 'controller.php?';
     ajaxURL += '&DadID=' + document.forms[0].DadID.value;
     ajaxURL += '&MomID=' + document.forms[0].MomID.value;
 

@@ -23,7 +23,7 @@ function generateBreedOOURL() {
 
     ajaxURL = '';
 
-    ajaxURL = 'controller?';
+    ajaxURL = 'controller.php?';
     ajaxURL += '&P1ID='+document.forms[0].P1ID.value;
     ajaxURL += '&P2ID='+document.forms[0].P2ID.value;
     ajaxURL += '&P3ID='+document.forms[0].P3ID.value;
