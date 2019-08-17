@@ -20,6 +20,26 @@ jobs:
       - store_artifacts:
           path: frontend/coverage.xml          
 
+  test_backend:
+    docker:
+      - image: circleci/php
+    steps:
+      - checkout
+      - run:
+          name: Install phpunit
+          command: php composer.phar install
+          working_directory: backend
+      - run:
+          name: Run unit tests
+          command: ./vendor/bin/phpunit --coverage-clover coverage.xml --bootstrap vendor/autoload.php
+          working_directory: backend
+      - run:
+          name: Upload coverage
+          command: bash <(curl -s https://codecov.io/bash)
+      - store_artifacts:
+          path: backend/coverage.xml          
+
+
   test_e2e:
     machine:
       image: ubuntu-1604:201903-01
@@ -56,14 +76,14 @@ jobs:
           path: e2e_tests/cypress/videos
       - store_artifacts:
           path: e2e_tests/coverage
-      - store_artifacts:
-          path: frontend/coverage.xml
 
 
 workflows:
   main:
     jobs:
       - test_frontend
+      - test_backend
       - test_e2e:
           requires:
             - test_frontend
+            - test_backend
