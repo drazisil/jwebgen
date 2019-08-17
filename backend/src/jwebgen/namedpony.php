@@ -78,13 +78,8 @@ namespace jwebgen {
 
             $piApi = new \jwebgen\piApi();
 
-            if ($usenew) {
-                $ponyXML = $piApi->ponyId2XML($this->ID, false, true);
-            } else {
-                $ponyXML = $piApi->ponyId2XML($this->ID);
-            }
-
-
+            $ponyXML = $piApi->ponyId2XML($this->ID, false, true);
+            
             if ($ponyXML === false) {
                 // Pony lookup from PonyIsland failed
                 echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src=\"assets/images/PICry_by_Eoko.png\"><br>\n";
@@ -145,33 +140,6 @@ namespace jwebgen {
             $this->sgeneFace = $tmpPonyXML->sgenes->face;
 //        }
             parent::MakeDNA();
-        }
-
-        /**
-         * Function to implode simpleXML
-         */
-        function pi_simpleXML2Array($xml) {
-
-            $arrTemp[] = (string) $xml['id'];
-            $arrTemp[] = (string) $xml->name;
-            $arrTemp[] = (string) $xml->nick;
-            $arrTemp[] = (string) $xml->owner;
-            $arrTemp[] = (string) $xml->breed;
-            $arrTemp[] = (string) $xml->gender;
-            $arrTemp[] = (string) $xml->level;
-            $arrTemp[] = (string) $xml->inbreeding;
-            $arrTemp[] = (string) $xml->colors->eyes;
-            $arrTemp[] = (string) $xml->colors->hair;
-            $arrTemp[] = (string) $xml->colors->stripe;
-            $arrTemp[] = (string) $xml->colors->body;
-            $arrTemp[] = (string) $xml->colors->ex1;
-            $arrTemp[] = (string) $xml->colors->ex2;
-            $arrTemp[] = (string) $xml->sgenes->hair;
-            $arrTemp[] = (string) $xml->sgenes->socks;
-            $arrTemp[] = (string) $xml->sgenes->pattern;
-            $arrTemp[] = (string) $xml->sgenes->face;
-
-            return $arrTemp;
         }
 
     }

@@ -348,13 +348,9 @@ namespace jwebgen {
          * @param boolean $testOnly
          * @return string
          */
-        function ponyId2XML($ponyId, $testOnly = false, $usenew = false) {
+        function ponyId2XML($ponyId, $testOnly = false, $usenew = true) {
 
-            if ($usenew) {
-                $url = 'http://ponyisland.net/get.php?pny=' . $ponyId;
-            } else {
-                $url = PONYISLAND_PONY_QUERY_URL . $ponyId;
-            }
+            $url = 'http://piproxy:9000/get/?pny=' . $ponyId;
 
             $browser = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.49 Safari/537.36";
 
@@ -375,10 +371,8 @@ namespace jwebgen {
                 switch (curl_errno($ch)) {
                     case '7':
                         // Unable to connect
-                        break;
                     case '28':
                         // Normal timeout
-                        break;
                     default:
                         // Some other reason, log
                         $email = "curl failed. Why?\n\n";
@@ -401,6 +395,7 @@ namespace jwebgen {
                      * download size is under 200
                      * PonyIsland returned a result, but it was empty
                      */
+                    echo 'URL: '.$info['size_download'].$url_string;
                     curl_close($ch);
                     return false;
                 } else if ($testOnly) {
@@ -428,7 +423,7 @@ namespace jwebgen {
             $strCleanedName = preg_replace_callback($pattern_name, array(&$this, '_name_match'), $ponyXMLString);
             $strCleanedNick = preg_replace_callback($pattern_nick, array(&$this, '_nick_match'), $strCleanedName);
             $strCleanedOwner = preg_replace_callback($pattern_owner, array(&$this, '_owner_match'), $strCleanedNick);
-            libxml_use_internal_errors(true);
+            // libxml_use_internal_errors(true);
             $xmlData = simplexml_load_string($strCleanedOwner);
             if (!$xmlData) {
                 /**
