@@ -25,7 +25,7 @@ SECRET_KEY = ')w_ddd^xeazs*lp1epuw^qw&_o^_a7s)^qik_qoktm1g3iacs!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "piproxy"]
 
 
 # Application definition
