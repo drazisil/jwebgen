@@ -13,12 +13,6 @@ function generateLookupURL() {
         document.ponyLookupForm.ponyid.value = m[1];
     }
 
-    if (document.ponyLookupForm.ponyid.value > 19814133) {
-//        Pony lookup from PonyIsland failed
-        alert("JwebGen can not currently lookup ponies made after the site change.\n Waiting on a fix from PI");
-        return false;
-    }
-
     ajaxURL = '';
 
     ajaxURL = 'controller.php?';
