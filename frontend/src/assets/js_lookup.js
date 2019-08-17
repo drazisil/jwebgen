@@ -21,7 +21,7 @@ function generateLookupURL() {
 
     ajaxURL = '';
 
-    ajaxURL = 'controller?';
+    ajaxURL = 'controller.php?';
     ajaxURL += '&ponyid=' + document.forms[0].ponyid.value;
 
     ajaxURL += '&idage=' + document.forms[0].idage.options[document.forms[0].idage.selectedIndex].value;
