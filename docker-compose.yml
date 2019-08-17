@@ -10,3 +10,8 @@ services:
     image: backend:latest
     ports: 
       - "8000:80"
+  piproxy:
+    build: ./ponyisland-proxy
+    image: piproxy:latest
+    ports: 
+      - "9000:9000"
