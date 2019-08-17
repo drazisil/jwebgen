@@ -4,11 +4,41 @@ import json
 from urllib.request import urlopen
 import dicttoxml
 
+def fetch_pi_breed(breed_id):
+    page = urlopen('http://get.ponyisland.net?breed={}'.format(breed_id))
+    content = page.read()
+    obj = json.loads(content)
+    return obj['Name']
+
 def fetch_pi_pony(pony_id):
     page = urlopen('http://get.ponyisland.net?pony={}'.format(pony_id))
     content = page.read()
     obj = json.loads(content)
+    try:
+        del(obj['OwnerID'])
+        del(obj['Level'])
+        del(obj['Inbreeding'])
+        del(obj['Skills'])
+    except Exception as e:
+        # We don't really care, this is only removing excess info
+        # so ok if it fails
+        pass
     return obj
+
+def remap_pi_pony(raw_pony):
+    clean_pony = {}
+    clean_pony['id'] = raw_pony['ID']
+    clean_pony['name'] = raw_pony['Name']
+    clean_pony['breed'] = fetch_pi_breed(raw_pony['BreedID'])
+    clean_pony['gender'] = 'Female' if raw_pony['Gender'] == 'F' else 'Male'
+    clean_pony['colors'] = {}
+    clean_pony['colors']['eyes'] = raw_pony['Colors']['Eyes']
+    clean_pony['colors']['hair'] = raw_pony['Colors']['Hair']
+    clean_pony['colors']['hair2'] = raw_pony['Colors']['Hair2']
+    clean_pony['colors']['body'] = raw_pony['Colors']['Body']
+    clean_pony['colors']['extra1'] = raw_pony['Colors']['Extra1']
+    clean_pony['colors']['extra2'] = raw_pony['Colors']['Extra2']
+    return clean_pony
 
 
 def index(request):
@@ -18,8 +48,6 @@ def get_json(request):
     return get(request)
 
 def get(request):
-    pi_pony_json = fetch_pi_pony(request.GET['pny'])
-    pony_raw_xml = dicttoxml.dicttoxml(pi_pony_json, root=False).decode()
 
     pony = ET.Element('pony')
 
@@ -30,10 +58,36 @@ def get(request):
         el.set('name', key)
         el.text = value
 
+    # Fetch pony from Pony Island
+    pony_id = request.GET['pny']
+    pi_pony_json = fetch_pi_pony(pony_id)
+
+    if pi_pony_json['ID'] == None:
+        # Pony not found
+        error = ET.SubElement(pony, 'error')
+        error.text = 'Enable to locate a pony with id {} on Pony Island, please make sure it exists.'.format(pony_id)
+        pony_xml = ET.tostring(pony, encoding='utf8')
+        return HttpResponse(pony_xml.decode(), content_type="application/xml")
+
+    # Map the numbers to names
+    remapped_pi_pony = remap_pi_pony(pi_pony_json)
+
+    # Convert the JSON to XML
+    pony_raw_xml = dicttoxml.dicttoxml(pi_pony_json, root=False).decode()
+    pony_clean_xml = dicttoxml.dicttoxml(remapped_pi_pony, root=False).decode()
+
+
+
+
+
     # Raw Pony
     raw_pony_xml_string = ''.join(['<rawpony>', pony_raw_xml, '</rawpony>'])
     pony.append(ET.fromstring(raw_pony_xml_string))
-    # pony_raw.append()
+
+    # Clean Pony
+    clean_pony_xml_string = ''.join(['<cleanpony>', pony_clean_xml, '</cleanpony>'])
+    pony.append(ET.fromstring(clean_pony_xml_string))
+
 
     # Pony Results
     
