@@ -350,7 +350,7 @@ namespace jwebgen {
          */
         function ponyId2XML($ponyId, $testOnly = false, $usenew = true) {
 
-            $url = 'http://localhost:9000/get?pny=' . $ponyId;
+            $url = 'http://piproxy:9000/get?pny=' . $ponyId;
 
             $browser = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.49 Safari/537.36";
 
@@ -371,17 +371,16 @@ namespace jwebgen {
                 switch (curl_errno($ch)) {
                     case '7':
                         // Unable to connect
-                        break;
                     case '28':
                         // Normal timeout
-                        break;
                     default:
                         // Some other reason, log
                         $email = "curl failed. Why?\n\n";
                         $email .= "Contents of url\n" . $this->piURL . "\n\n";
                         $email .= 'Curl error: (' . curl_errno($ch) . ') ' . curl_error($ch) . "\n";
                         $email .= "Contents of info:\n\n" . print_r($info, 1);
-                        error_log($email, 1, 'jwbecher+errors_jwebgen@gmail.com');
+                        // error_log($email, 1, 'jwbecher+errors_jwebgen@gmail.com');
+                        echo($email);
                         break;
                 }
                 curl_close($ch);
