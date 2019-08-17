@@ -4,18 +4,22 @@ import json
 from urllib.request import urlopen
 import dicttoxml
 
+def fetch_pi_pony(pony_id):
+    page = urlopen('http://get.ponyisland.net?pony={}'.format(pony_id))
+    content = page.read()
+    obj = json.loads(content)
+    return obj
+
 
 def index(request):
     return HttpResponse("Hello, world. You're at the piproxy index.")
 
 def get_json(request):
     return get(request)
-    
+
 def get(request):
-    page = urlopen('http://get.ponyisland.net?pony=1')
-    content = page.read()
-    obj = json.loads(content)
-    pony_raw_xml = dicttoxml.dicttoxml(obj, root=False).decode()
+    pi_pony_json = fetch_pi_pony(request.GET['pny'])
+    pony_raw_xml = dicttoxml.dicttoxml(pi_pony_json, root=False).decode()
 
     pony = ET.Element('pony')
 
