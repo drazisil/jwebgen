@@ -1,11 +1,19 @@
 from django.http import HttpResponse
 import xml.etree.ElementTree as ET
+import json
+from urllib.request import urlopen
+import dicttoxml
 
 
 def index(request):
     return HttpResponse("Hello, world. You're at the piproxy index.")
 
 def get(request):
+    page = urlopen('http://get.ponyisland.net?pony=1')
+    content = page.read()
+    obj = json.loads(content)
+    pony_raw_xml = dicttoxml.dicttoxml(obj, root=False).decode()
+
     pony = ET.Element('pony')
 
     # Query
@@ -15,6 +23,13 @@ def get(request):
         el.set('name', key)
         el.text = value
 
+    # Raw Pony
+    raw_pony_xml_string = ''.join(['<rawpony>', pony_raw_xml, '</rawpony>'])
+    pony.append(ET.fromstring(raw_pony_xml_string))
+    # pony_raw.append()
+
+    # Pony Results
+    
     # Name
     name = ET.SubElement(pony, 'name')
     name.text = 'Genny'
