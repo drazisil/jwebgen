@@ -348,13 +348,9 @@ namespace jwebgen {
          * @param boolean $testOnly
          * @return string
          */
-        function ponyId2XML($ponyId, $testOnly = false, $usenew = false) {
+        function ponyId2XML($ponyId, $testOnly = false, $usenew = true) {
 
-            if ($usenew) {
-                $url = 'http://ponyisland.net/get.php?pny=' . $ponyId;
-            } else {
-                $url = PONYISLAND_PONY_QUERY_URL . $ponyId;
-            }
+            $url = 'http://localhost:9000/get?pny=' . $ponyId;
 
             $browser = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.49 Safari/537.36";
 
