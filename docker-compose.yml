@@ -1,5 +1,10 @@
 version: "3.7"
 services: 
+  frontend1:
+    build: ./new_frontend
+    image: new_frontend:latest
+    ports: 
+      - "81:80"
   frontend:
     build: ./frontend
     image: frontend:latest
