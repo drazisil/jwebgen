@@ -1,0 +1,21 @@
+{
+    "name": "drazisil/frontend",
+    "description": "JWebGen Frontend",
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "6.5"
+    },
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Joe Becher",
+            "email": "jwbecher@drazisil.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "": "src/",
+            "\\jwebgen\\": "src/jwebgen"
+        }   
+    }
+}

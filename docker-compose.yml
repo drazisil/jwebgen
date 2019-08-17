@@ -5,3 +5,8 @@ services:
     image: frontend:latest
     ports: 
       - "80:80"
+  backend:
+    build: ./backend
+    image: backend:latest
+    ports: 
+      - "8000:80"
