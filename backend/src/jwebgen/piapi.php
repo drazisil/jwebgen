@@ -61,6 +61,10 @@ namespace jwebgen {
                     return 17;
                 case 'MountainPony':
                     return 18;
+                case 'KitsunePony':
+                    return 19;
+                case 'DinoPony':
+                    return 20;
 
                 default:
                     echo 'Unsupported breed: ' . $strPonyBreed;
